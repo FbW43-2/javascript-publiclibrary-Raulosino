@@ -164,6 +164,7 @@ class Library extends libraryObject {
                     array.push(this.shelves[i].books[x]);
                 }
             }
+            this.shelves[i].books = [];
             this.shelves[i].books = array;
         }
     }
