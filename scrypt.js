@@ -152,6 +152,21 @@ class Library extends libraryObject {
             this.shelves[i].books = array;
         }
     }
+
+    searchByAuthor(author) {
+        if (!(author instanceof Author)) {
+            throw new Error("The parameter must be an instance of Author");
+        }
+        for (let i = 0; i < this.shelves.length; i++) {
+            let array = [];
+            for (let x = 0; x < this.shelves[i].books.length; x++) {
+                if (this.shelves[i].books[x].author === author) {
+                    array.push(this.shelves[i].books[x]);
+                }
+            }
+            this.shelves[i].books = array;
+        }
+    }
 }
 
 
@@ -182,7 +197,9 @@ rightShelf.addBook(b5);
 
 
 leftShelf.addBook(b6);
-
+leftShelf.addBook(b7);
+leftShelf.addBook(b8);
+leftShelf.addBook(b9);
 
 
 alexandria.burnBooks(1885);
