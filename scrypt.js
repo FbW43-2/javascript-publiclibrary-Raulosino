@@ -38,7 +38,7 @@ class Book extends libraryObject {
         if (!(author instanceof Author)) {
             throw new Error("The parameter author must be an object Author");
         }
-        this.author = author.firstName + " " + author.lastName;
+        this.author = author;
         if (!pages || pages < 0) {
             throw new Error("The book pages must be more than 0 and can't be null.");
         }
@@ -48,6 +48,13 @@ class Book extends libraryObject {
             throw new Error("The publication year can't be null.");
         }
         this.year = year;
+    }
+
+    burnBook() {
+        if (this.shelf != null) {
+            this.isBurned = true;
+            this.shelf.removeBook(this);
+        }
     }
 }
 
@@ -149,6 +156,7 @@ class Library extends libraryObject {
                     array.push(this.shelves[i].books[x]);
                 }
             }
+            this.shelves[i].books = [];
             this.shelves[i].books = array;
         }
     }
@@ -157,16 +165,20 @@ class Library extends libraryObject {
         if (!(author instanceof Author)) {
             throw new Error("The parameter must be an instance of Author");
         }
+        let array = [];
         for (let i = 0; i < this.shelves.length; i++) {
-            let array = [];
             for (let x = 0; x < this.shelves[i].books.length; x++) {
                 if (this.shelves[i].books[x].author === author) {
                     array.push(this.shelves[i].books[x]);
                 }
             }
-            this.shelves[i].books = [];
-            this.shelves[i].books = array;
         }
+        console.log("Books publshed by the author: " + array.length)
+        console.log(array);
+    }
+
+    moveBookByPages(pages) {
+
     }
 }
 
@@ -202,9 +214,8 @@ leftShelf.addBook(b7);
 leftShelf.addBook(b8);
 leftShelf.addBook(b9);
 
+b9.burnBook();
 
-alexandria.burnBooks(1885);
+leftShelf.booksInShelf();
 
-console.log(leftShelf);
-console.log(rightShelf);
 
